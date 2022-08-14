@@ -37,8 +37,19 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MeI-4G-hGR" userLabel="TopView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                        <subviews>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter an Address" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Cgd-5t-umc" userLabel="addressTextField">
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="Cgd-5t-umc" secondAttribute="bottom" id="I6x-hY-4Si"/>
+                                            <constraint firstAttribute="trailing" secondItem="Cgd-5t-umc" secondAttribute="trailing" id="YJO-2f-hcZ"/>
+                                            <constraint firstItem="Cgd-5t-umc" firstAttribute="leading" secondItem="MeI-4G-hGR" secondAttribute="leading" id="dX7-xe-Krd"/>
+                                            <constraint firstItem="Cgd-5t-umc" firstAttribute="top" secondItem="MeI-4G-hGR" secondAttribute="top" id="eCX-Zq-hWD"/>
                                             <constraint firstAttribute="height" constant="100" id="iWT-PX-Nkd"/>
                                         </constraints>
                                     </view>
@@ -103,6 +114,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addressTextField" destination="Cgd-5t-umc" id="3XX-bj-Gmo"/>
                         <outlet property="tableView" destination="W2Z-yT-uH1" id="9gA-3K-Skp"/>
                     </connections>
                 </viewController>
