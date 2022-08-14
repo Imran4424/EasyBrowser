@@ -9,6 +9,7 @@ import UIKit
 import WebKit
 
 class BasicWebViewController: UIViewController {
+    var urlString: String?
     var webView: WKWebView!
     var progressView: UIProgressView!
     var websites = ["apple.com", "shahcodersden.com", "hackingwithswift.com", "google.com"]
@@ -25,7 +26,7 @@ class BasicWebViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Open", style: .plain, target: self, action: #selector(openTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "house.fill"), style: .plain, target: self, action: #selector(homeTapped))
         
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
@@ -41,22 +42,38 @@ class BasicWebViewController: UIViewController {
         
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
         
-        let url = URL(string: "https://" + websites[3])!
+        guard let urlString = urlString else {
+            print("[BasicWebViewController] urlString is nil")
+            return
+        }
+        
+        let url = URL(string: urlString)!
         webView.load(URLRequest(url: url))
         // allows the web view to travel forward and backward
         webView.allowsBackForwardNavigationGestures = true
     }
     
-    @objc func openTapped() {
-        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
+    @objc func homeTapped() {
+        //        let ac = UIAlertController(title: "Open page...", message: nil, preferredStyle: .actionSheet)
+        //
+        //        for website in websites {
+        //            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
+        //        }
+        //
+        //        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        //        ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        //        present(ac, animated: true)
         
-        for website in websites {
-            ac.addAction(UIAlertAction(title: website, style: .default, handler: openPage))
+        guard let homeViewController = storyboard?.instantiateViewController(withIdentifier: "homeView") as? HomeViewController else {
+            print("[BasicWebViewController] home view is not initiated")
+            return
         }
+              
+        // for presenting view controller in full screen
+        homeViewController.modalPresentationStyle = .fullScreen
+        // present when current view controller don't have navigation view controller
+        present(homeViewController, animated: true, completion: nil)
         
-        ac.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-        ac.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        present(ac, animated: true)
     }
     
     func openPage(action: UIAlertAction) {
