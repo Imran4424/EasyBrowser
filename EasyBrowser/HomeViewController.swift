@@ -15,6 +15,11 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        addressTextField.returnKeyType = .done
+        addressTextField.autocorrectionType = .no
+        addressTextField.delegate = self
+        
         tableView.dataSource = self
         tableView.delegate = self
     }
@@ -34,6 +39,24 @@ class HomeViewController: UIViewController {
         // here modal will be navigation controller
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true, completion: nil)
+    }
+}
+
+extension HomeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard var text = textField.text else {
+            print("[HomeViewController] text is nil")
+            return false
+        }
+        
+        if text.isValidURL {
+            loadWebsite(url: text)
+        } else {
+            text = "www.google.com/search?q=" + text.replace(target: " ", withString: "+")
+            loadWebsite(url: text)
+        }
+        
+        return true
     }
 }
 
@@ -80,5 +103,10 @@ extension String {
         } else {
             return false
         }
+    }
+    
+    func replace(target: String, withString: String) -> String
+    {
+       return self.replacingOccurrences(of: target, with: withString, options: .literal, range: nil)
     }
 }

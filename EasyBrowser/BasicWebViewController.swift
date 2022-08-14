@@ -114,7 +114,7 @@ extension BasicWebViewController: WKNavigationDelegate {
         
         let alert = UIAlertController(title: "Failed!!!", message: "Website not found", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        present(alert, animated: true)
+        //present(alert, animated: true)
         
         decisionHandler(.cancel)
     }
