@@ -1,5 +1,5 @@
 //
-//  BasicViewController.swift
+//  BasicWebViewController.swift
 //  EasyBrowser
 //
 //  Created by Shah Md Imran Hossain on 13/8/22.
@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class BasicViewController: UIViewController {
+class BasicWebViewController: UIViewController {
     var webView: WKWebView!
     var progressView: UIProgressView!
     var websites = ["apple.com", "shahcodersden.com", "hackingwithswift.com", "google.com"]
@@ -78,7 +78,7 @@ class BasicViewController: UIViewController {
     }
 }
 
-extension BasicViewController: WKNavigationDelegate {
+extension BasicWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         title = webView.title
     }
