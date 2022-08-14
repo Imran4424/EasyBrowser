@@ -12,7 +12,6 @@ class BasicWebViewController: UIViewController {
     var urlString: String?
     var webView: WKWebView!
     var progressView: UIProgressView!
-    var websites = ["apple.com", "shahcodersden.com", "hackingwithswift.com", "google.com"]
 
     // load view get called before view did load
     override func loadView() {
@@ -103,13 +102,9 @@ extension BasicWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         let url = navigationAction.request.url
         
-        if let host = url?.host {
-            for website in websites {
-                if host.contains(website) {
-                    decisionHandler(.allow)
-                    return
-                }
-            }
+        if (url?.host) != nil {
+            decisionHandler(.allow)
+            return
         }
         
         let alert = UIAlertController(title: "Failed!!!", message: "Website not found", preferredStyle: .alert)
