@@ -8,6 +8,7 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
     
     var websites = ["apple.com", "shahcodersden.com", "hackingwithswift.com", "google.com"]
@@ -66,4 +67,18 @@ extension HomeViewController: UITableViewDelegate {
 // MARK: - Table View Cell
 class TableViewCell: UITableViewCell {
     @IBOutlet weak var label: UILabel!
+}
+
+// MARK: - String extention
+extension String {
+    // validating url
+    var isValidURL: Bool {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+        if let match = detector.firstMatch(in: self, options: [], range: NSRange(location: 0, length: self.utf16.count)) {
+            // it is a link, if the match covers the whole string
+            return match.range.length == self.utf16.count
+        } else {
+            return false
+        }
+    }
 }
