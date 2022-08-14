@@ -71,9 +71,9 @@ class BasicWebViewController: UIViewController {
               
         // for presenting view controller in full screen
         homeViewController.modalPresentationStyle = .fullScreen
+        
         // present when current view controller don't have navigation view controller
         present(homeViewController, animated: true, completion: nil)
-        
     }
     
     func openPage(action: UIAlertAction) {
